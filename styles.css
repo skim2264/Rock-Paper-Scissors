@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+#display {
+    display: flex;
+    flex-direction: column;
+}
+
+#playerScoreLabel, #compScoreLabel {
+    display: flex;
+    gap: 8px;
+}

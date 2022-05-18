@@ -47,37 +47,44 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-//Play 5 rounds of Rock-Paper-Scissors
-function game() {
-    let countWin = 0;
-    let countLose = 0;
-    //play 5 rounds
-    for (let i = 0; i < 5; i++) {
-        //get input from user
-        let playerSelection = prompt("Choose: Rock, Paper, or Scissors");
-        let output = playRound(playerSelection, computerPlay());
-        //output outcome of round
-        console.log(output);
-        //keep count of how many times the player wins and loses
-        if (output.includes("You Win!")) {
-            countWin++;
-        }
-        else if (output.includes("You Lose")) {
-            countLose++;
-        }
-    }
+const container = document.querySelector('#buttons');
+const buttons = document.querySelectorAll('button');
 
-    //Output if the player wins or loses after 5 rounds
-    if (countWin > countLose) {
-        return "You are the winner!";
-    }
-    else if (countLose > countWin) {
-        return "You are the Loser!";
-    }
-    else {
-        return "You tied!"
-    }
-}
+const display = document.querySelector('#display');
+const roundResult = document.querySelector('#roundResult');
+const score = document.querySelector('#score');
+const playerScore = score.querySelector('#playerScore>p');
+const compScore = score.querySelector('#compScore>p');
+const finalResult = document.querySelector('#finalResult');
 
-//Call game function
-console.log(game());
+let countWinPlayer = 0;
+let countWinComp = 0;
+let outcome = '';
+
+
+buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        if ((countWinPlayer == 5) || (countWinComp == 5)) {
+            location.reload();
+        }
+        outcome = playRound(btn.id, computerPlay());
+        roundResult.innerHTML += outcome + "<br>";
+        if (outcome.includes('You Win!')) {
+            countWinPlayer++;
+            playerScore.textContent = countWinPlayer;
+            if (countWinPlayer == 5) {
+                finalResult.textContent += 'You won 5 rounds!';
+            }
+        }
+        else if (outcome.includes('You Lose!')) {
+            countWinComp++;
+            compScore.textContent = countWinComp;
+            if (countWinComp == 5) {
+                finalResult.textContent += 'You lost, computer won 5 rounds.';
+            }
+        }
+
+    });
+});
+
+
